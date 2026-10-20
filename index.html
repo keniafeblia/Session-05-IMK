@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiDisposisi — Dasbor Monitoring Surat</title>
+  <meta name="description" content="Studi kasus IMK & Visualisasi Data: dasbor monitoring disposisi surat berbasis User-Centered Design.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#utama">Lewati ke konten utama</a>
+
+  <header class="topbar">
+    <div>
+      <h1>SiDisposisi</h1>
+      <p class="sub">Monitoring disposisi surat · Bagian Umum · data per 19 Okt 2026</p>
+    </div>
+    <div class="pref" role="group" aria-label="Pengaturan tampilan">
+      <button id="btnTeks" aria-pressed="false" title="Perbesar ukuran teks">A+ Teks Besar</button>
+      <button id="btnKontras" aria-pressed="false" title="Aktifkan kontras tinggi">◐ Kontras Tinggi</button>
+    </div>
+  </header>
+
+  <main id="utama">
+    <!-- 1. OVERVIEW FIRST -->
+    <section aria-labelledby="h-ringkasan">
+      <h2 id="h-ringkasan" class="sr-only">Ringkasan</h2>
+      <div class="kpi" id="kpi"></div>
+    </section>
+
+    <!-- 2. ZOOM & FILTER -->
+    <section class="filter" aria-labelledby="h-filter">
+      <h2 id="h-filter" class="sr-only">Filter data</h2>
+      <label>Bulan
+        <select id="fBulan">
+          <option value="semua">Semua bulan</option>
+          <option value="4">Mei</option><option value="5">Juni</option>
+          <option value="6">Juli</option><option value="7">Agustus</option>
+          <option value="8">September</option><option value="9">Oktober</option>
+        </select>
+      </label>
+      <label>Unit tujuan <select id="fUnit"><option value="semua">Semua unit</option></select></label>
+      <label>Status
+        <select id="fStatus">
+          <option value="semua">Semua status</option>
+          <option>Terlambat</option><option>Diproses</option><option>Selesai</option>
+        </select>
+      </label>
+      <label>Arah
+        <select id="fArah">
+          <option value="semua">Masuk & keluar</option>
+          <option>Masuk</option><option>Keluar</option>
+        </select>
+      </label>
+      <label class="cari">Cari
+        <input id="fCari" type="search" placeholder="Nomor, perihal, atau pengirim">
+      </label>
+      <button id="btnReset" class="ghost">Reset filter</button>
+      <p id="info" class="info" aria-live="polite"></p>
+    </section>
+
+    <section class="grid2">
+      <article class="card">
+        <h2>Surat per unit tujuan</h2>
+        <p class="hint">Merah = terlambat. Klik baris untuk memfilter unit.</p>
+        <div id="bar"></div>
+      </article>
+      <article class="card">
+        <h2>Tren surat masuk & keluar</h2>
+        <p class="hint">Mei – Oktober 2026. Arahkan kursor ke titik untuk angka.</p>
+        <div id="line"></div>
+      </article>
+    </section>
+
+    <!-- 3. DETAILS ON DEMAND -->
+    <section class="card">
+      <h2>Daftar surat</h2>
+      <p class="hint">Diurutkan: terlambat dulu, lalu terbaru. Klik / tekan Enter pada baris untuk melihat detail.</p>
+      <div class="tabel-wrap">
+        <table>
+          <thead>
+            <tr><th>No. Surat</th><th>Tanggal</th><th>Arah</th><th>Perihal</th><th>Unit</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detail" aria-labelledby="dJudul">
+    <div class="d-head">
+      <h2 id="dJudul">Detail surat</h2>
+      <button id="dTutup" class="ghost" aria-label="Tutup detail">✕</button>
+    </div>
+    <dl id="dIsi"></dl>
+  </dialog>
+
+  <footer>Studi kasus IMK & Visualisasi Data · data fiktif · tanpa library eksternal</footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
